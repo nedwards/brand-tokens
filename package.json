@@ -2,7 +2,7 @@
   "name": "brand-tokens",
   "version": "0.0.1",
   "type": "module",
-  "description": "",
+  "description": "Brand token package for managing styling",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "clean": "rm -rf dist && mkdir dist",
-    "build": "yarn clean && node build.mjs",
+    "build": "yarn clean && tsc && node build.mjs",
     "prepublishOnly": "yarn build"
   },
   "author": "",

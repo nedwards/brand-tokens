@@ -1,22 +1,27 @@
-import { useEffect, useRef, ReactNode, FC } from 'react'
+import { useEffect, useRef, ReactNode, FC, HTMLAttributes } from 'react'
 import packageJson from '../package.json'
-import defaultStyles from './css/default.module.css'
-import brands from './brands.json'
+import defaultStyles from '../dist/css/default.module.css'
+
+import { availableBrands, type Brand } from './brands'
 
 const PACKAGE_VERSION = packageJson.version
 
-export type Brand = string
+type BrandProviderProps = {
+  brand: Brand
+  children: ReactNode
+} & HTMLAttributes<HTMLDivElement>
 
-const BrandProvider: FC<{ brand: Brand; children: ReactNode }> = ({
+export const BrandProvider: FC<BrandProviderProps> = ({
   brand,
   children,
+  ...props
 }) => {
-  const isValidBrand = brands.includes(brand)
+  const isValidBrand = availableBrands.includes(brand)
   const stylesRef = useRef(defaultStyles)
 
   useEffect(() => {
     if (!isValidBrand) {
-      console.warn(`⚠️ Invalid brand "${brand}", using default styles.`)
+      console.warn(`⚠️ Invalid brand "${brand}".`)
       return
     }
 
@@ -26,16 +31,17 @@ const BrandProvider: FC<{ brand: Brand; children: ReactNode }> = ({
       })
       .catch(() => {
         console.warn(
-          `⚠️ Could not load styles for brand "${brand}", using default.`
+          `⚠️ Could not load styles for brand "${brand}", using defaults.`
         )
       })
   }, [brand, isValidBrand])
 
   return (
-    <div data-brand={`${isValidBrand ? brand : 'default'}-${PACKAGE_VERSION}`}>
+    <div
+      data-brand={`${isValidBrand ? brand : 'default'}-${PACKAGE_VERSION}`}
+      {...props}
+    >
       {children}
     </div>
   )
 }
-
-export default BrandProvider

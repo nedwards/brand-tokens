@@ -1,1 +1,1 @@
-export { default as BrandProvider } from './BrandProvider'
+export { BrandProvider } from './BrandProvider'

@@ -1,11 +1,11 @@
 import StyleDictionary from 'style-dictionary'
 import fs from 'fs'
-import packageJson from './package.json' assert { type: 'json' }
+const packageJson = JSON.parse(fs.readFileSync('./package.json', 'utf-8'))
 
 const PACKAGE_VERSION = packageJson.version
 const TOKENS_DIR = 'tokens/'
-const SRC_DIR = 'src/'
-const CSS_DIR = 'src/css/'
+const DIST_DIR = 'dist/'
+const CSS_DIR = 'dist/css/'
 
 // Get all JSON files in the tokens directory
 const brandFiles = fs
@@ -18,8 +18,10 @@ if (!fs.existsSync(CSS_DIR)) {
   fs.mkdirSync(CSS_DIR, { recursive: true })
 }
 
-// ✅ Generate brands.json dynamically
-fs.writeFileSync(`${SRC_DIR}/brands.json`, JSON.stringify(brands, null, 2))
+// ✅ Generate brands.d.ts for TypeScript
+const brandsTsContent = `export const availableBrands = ${JSON.stringify(brands, null, 2)} as const;
+export type Brand = typeof availableBrands[number];\n`
+fs.writeFileSync(`${DIST_DIR}/brands.ts`, brandsTsContent)
 
 // Function to create Style Dictionary configuration for a brand
 const getStyleDictionaryConfig = (brand) => ({

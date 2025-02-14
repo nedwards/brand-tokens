@@ -1,14 +1,16 @@
 {
   "compilerOptions": {
-    "target": "ESNext", // Enables modern JavaScript features
-    "module": "ESNext", // Required for dynamic imports
-    "lib": ["ESNext", "DOM"], // Enables Promises and browser APIs
+    "outDir": "dist",
+    "rootDir": "src",
+    "target": "ESNext",
+    "module": "ESNext",
+    "lib": ["ESNext", "DOM"],
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "moduleResolution": "node",
-    "jsx": "react-jsx", // Ensure JSX support
+    "jsx": "react-jsx",
     "strict": true,
     "skipLibCheck": true
   },
-  "include": ["./src"]
+  "include": ["src"]
 }
