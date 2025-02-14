@@ -1,0 +1,8 @@
+{
+  "color": {
+    "primary": { "value": "#999" },
+    "secondary": { "value": "#ccc" },
+    "background": { "value": "#fff" },
+    "text": { "value": "#000" }
+  }
+}
