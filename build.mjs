@@ -25,8 +25,7 @@ fs.writeFileSync(`${DIST_DIR}/brands.ts`, brandsTsContent)
 
 // Function to create Style Dictionary configuration for a brand
 const getStyleDictionaryConfig = (brand) => ({
-  extends: [`${TOKENS_DIR}/default.json`],
-  source: [`${TOKENS_DIR}/${brand}.json`],
+  source: [`${TOKENS_DIR}/default.json`, `${TOKENS_DIR}/${brand}.json`],
   platforms: {
     web: {
       transformGroup: 'css',
