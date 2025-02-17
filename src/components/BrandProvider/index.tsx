@@ -1,10 +1,8 @@
 import { useEffect, useRef, ReactNode, FC, HTMLAttributes } from 'react'
-import packageJson from '../package.json'
-import defaultStyles from '../dist/css/default.module.css'
+import defaultStyles from './css/default.module.css'
 
-import { availableBrands, type Brand } from './brands'
-
-const PACKAGE_VERSION = packageJson.version
+import { PACKAGE_VERSION } from './version'
+import { BRANDS, type Brand } from './brands'
 
 type BrandProviderProps = {
   brand: Brand
@@ -16,7 +14,7 @@ export const BrandProvider: FC<BrandProviderProps> = ({
   children,
   ...props
 }) => {
-  const isValidBrand = availableBrands.includes(brand)
+  const isValidBrand = BRANDS.includes(brand)
   const stylesRef = useRef(defaultStyles)
 
   useEffect(() => {
@@ -30,9 +28,7 @@ export const BrandProvider: FC<BrandProviderProps> = ({
         stylesRef.current = module.default
       })
       .catch(() => {
-        console.warn(
-          `⚠️ Could not load styles for brand "${brand}", using defaults.`
-        )
+        console.warn(`⚠️ Could not load styles for brand "${brand}".`)
       })
   }, [brand, isValidBrand])
 
